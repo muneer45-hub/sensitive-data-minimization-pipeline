@@ -1,0 +1,78 @@
+test_exact_and_conflicting_duplicates (tests.test_pipeline.DuplicatesHistoryAndLateData.test_exact_and_conflicting_duplicates) ... [t_dup] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+ok
+test_late_arriving_older_version_does_not_overwrite (tests.test_pipeline.DuplicatesHistoryAndLateData.test_late_arriving_older_version_does_not_overwrite) ... [t_late1] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+[t_late1] orders: empty batch (orders.csv)
+[t_late2] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+ok
+test_new_file_with_real_change_updates_and_archives (tests.test_pipeline.DuplicatesHistoryAndLateData.test_new_file_with_real_change_updates_and_archives) ... [t_c1] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+[t_c1] orders: empty batch (orders.csv)
+[t_c2] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+ok
+test_out_of_order_update_in_same_file_keeps_history (tests.test_pipeline.DuplicatesHistoryAndLateData.test_out_of_order_update_in_same_file_keeps_history) ... [t_ooo] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+[t_ooo] orders: empty batch (orders.csv)
+ok
+test_empty_batch_header_only (tests.test_pipeline.HappyPathAndBasics.test_empty_batch_header_only) ... [t_empty] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+[t_empty] customers: empty batch (customers.csv)
+[t_empty] orders: empty batch (orders.csv)
+ok
+test_empty_batch_zero_byte_file (tests.test_pipeline.HappyPathAndBasics.test_empty_batch_zero_byte_file) ... [t_zero] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+[t_zero] customers: empty batch (customers.csv)
+[t_zero] orders: empty batch (orders.csv)
+ok
+test_happy_path_loads_protects_and_publishes (tests.test_pipeline.HappyPathAndBasics.test_happy_path_loads_protects_and_publishes) ... [t1] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+ok
+test_missing_input_file_is_a_recorded_failure (tests.test_pipeline.HappyPathAndBasics.test_missing_input_file_is_a_recorded_failure) ... [t_nofile] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+[t_nofile] customers FAILED: FileNotFoundError: input_file_missing:C:\Users\Asus\AppData\Local\Temp\tmplpv77tkc\in\customers.csv
+[t_nofile] orders FAILED: FileNotFoundError: input_file_missing:C:\Users\Asus\AppData\Local\Temp\tmplpv77tkc\in\orders.csv
+ok
+test_backfill_from_other_directory_does_not_clobber_newer_data (tests.test_pipeline.IdempotencyAndRecovery.test_backfill_from_other_directory_does_not_clobber_newer_data) ... [b1] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+[b1] orders: empty batch (orders.csv)
+[b2] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+ok
+test_forced_rerun_creates_no_duplicates (tests.test_pipeline.IdempotencyAndRecovery.test_forced_rerun_creates_no_duplicates) ... [f1] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+[f2] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+ok
+test_partial_failure_rolls_back_then_retry_succeeds (tests.test_pipeline.IdempotencyAndRecovery.test_partial_failure_rolls_back_then_retry_succeeds) ... [p1] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+[p1] orders FAILED: RuntimeError: simulated crash mid-load
+[p2] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+ok
+test_rerun_same_input_is_skipped (tests.test_pipeline.IdempotencyAndRecovery.test_rerun_same_input_is_skipped) ... [r1] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+[r2] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+ok
+test_amount_boundaries (tests.test_pipeline.MalformedNullsAndRules.test_amount_boundaries) ... [t_amt] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+ok
+test_dob_future_and_updated_before_signup (tests.test_pipeline.MalformedNullsAndRules.test_dob_future_and_updated_before_signup) ... [t_dom] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+[t_dom] orders: empty batch (orders.csv)
+ok
+test_invalid_reference_key (tests.test_pipeline.MalformedNullsAndRules.test_invalid_reference_key) ... [t_fk] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+ok
+test_malformed_row_wrong_field_count_is_quarantined (tests.test_pipeline.MalformedNullsAndRules.test_malformed_row_wrong_field_count_is_quarantined) ... [t_bad] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+ok
+test_missing_required_field_and_nulls (tests.test_pipeline.MalformedNullsAndRules.test_missing_required_field_and_nulls) ... [t_null] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+[t_null] orders: empty batch (orders.csv)
+ok
+test_quarantine_never_stores_raw_pii (tests.test_pipeline.MalformedNullsAndRules.test_quarantine_never_stores_raw_pii) ... [t_pii] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+[t_pii] orders: empty batch (orders.csv)
+ok
+test_missing_required_column_fails_that_entity_only (tests.test_pipeline.SchemaChange.test_missing_required_column_fails_that_entity_only) ... [t_schema] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+[t_schema] customers FAILED: SchemaError: missing_required_columns:email
+[t_schema] orders: empty batch (orders.csv)
+ok
+test_unexpected_extra_column_is_ignored_and_audited (tests.test_pipeline.SchemaChange.test_unexpected_extra_column_is_ignored_and_audited) ... [t_extra] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+[t_extra] customers: unexpected extra columns ignored: ['home_address']
+[t_extra] orders: empty batch (orders.csv)
+ok
+test_invalid_policy_action_rejected (tests.test_units.ConfigTests.test_invalid_policy_action_rejected) ... ok
+test_end_to_end_every_labelled_defect_is_caught_and_reconciles (tests.test_units.GeneratorAndEndToEnd.test_end_to_end_every_labelled_defect_is_caught_and_reconciles) ... [e2e] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+ok
+test_generator_is_reproducible (tests.test_units.GeneratorAndEndToEnd.test_generator_is_reproducible) ... ok
+test_profiler_flags_unprotected_sensitive_columns (tests.test_units.GeneratorAndEndToEnd.test_profiler_flags_unprotected_sensitive_columns) ... ok
+test_masks (tests.test_units.ProtectionTests.test_masks) ... ok
+test_normalize_ts (tests.test_units.ProtectionTests.test_normalize_ts) ... ok
+test_redact_record (tests.test_units.ProtectionTests.test_redact_record) ... ok
+test_tokenization_is_deterministic_and_key_dependent (tests.test_units.ProtectionTests.test_tokenization_is_deterministic_and_key_dependent) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 4.296s
+
+OK

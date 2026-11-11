@@ -1,0 +1,21 @@
+{
+  "paths": {
+    "input_dir": "sample_data/input",
+    "output_dir": "output",
+    "db_filename": "warehouse.db"
+  },
+  "token_key_env_var": "PII_TOKEN_KEY",
+  "allowed_country_codes": ["US", "GB", "IN", "DE", "CA", "AU", "FR", "SG"],
+  "allowed_currencies": ["USD", "EUR", "GBP", "INR"],
+  "allowed_order_statuses": ["PLACED", "SHIPPED", "CANCELLED", "REFUNDED"],
+  "max_order_amount": "1000000.00",
+  "policies": {
+    "customers": {
+      "full_name": "drop",
+      "email": "tokenize",
+      "phone": "mask_phone",
+      "ssn": "mask_ssn",
+      "dob": "generalize_dob"
+    }
+  }
+}

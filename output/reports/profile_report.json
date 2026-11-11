@@ -1,0 +1,170 @@
+[
+  {
+    "entity": "customers",
+    "file": "customers.csv",
+    "rows_profiled": 218,
+    "rows_total": 218,
+    "columns": [
+      {
+        "column": "customer_id",
+        "null_rate": 0.0092,
+        "distinct_values": 199,
+        "detected_pii_type": null,
+        "evidence": null,
+        "sensitivity": "none",
+        "configured_action": null,
+        "status": "not_sensitive"
+      },
+      {
+        "column": "full_name",
+        "null_rate": 0.0,
+        "distinct_values": 100,
+        "detected_pii_type": "person_name",
+        "evidence": "name_hint",
+        "sensitivity": "medium",
+        "configured_action": "drop",
+        "status": "PROTECTED"
+      },
+      {
+        "column": "email",
+        "null_rate": 0.0046,
+        "distinct_values": 200,
+        "detected_pii_type": "email",
+        "evidence": "name_hint+value_pattern",
+        "sensitivity": "medium",
+        "configured_action": "tokenize",
+        "status": "PROTECTED"
+      },
+      {
+        "column": "phone",
+        "null_rate": 0.078,
+        "distinct_values": 194,
+        "detected_pii_type": "phone",
+        "evidence": "name_hint+value_pattern",
+        "sensitivity": "medium",
+        "configured_action": "mask_phone",
+        "status": "PROTECTED"
+      },
+      {
+        "column": "ssn",
+        "null_rate": 0.0,
+        "distinct_values": 200,
+        "detected_pii_type": "national_id",
+        "evidence": "name_hint+value_pattern",
+        "sensitivity": "high",
+        "configured_action": "mask_ssn",
+        "status": "PROTECTED"
+      },
+      {
+        "column": "dob",
+        "null_rate": 0.0,
+        "distinct_values": 200,
+        "detected_pii_type": "date_of_birth",
+        "evidence": "name_hint+value_pattern",
+        "sensitivity": "high",
+        "configured_action": "generalize_dob",
+        "status": "PROTECTED"
+      },
+      {
+        "column": "country_code",
+        "null_rate": 0.0,
+        "distinct_values": 8,
+        "detected_pii_type": null,
+        "evidence": null,
+        "sensitivity": "none",
+        "configured_action": null,
+        "status": "not_sensitive"
+      },
+      {
+        "column": "signup_ts",
+        "null_rate": 0.0,
+        "distinct_values": 200,
+        "detected_pii_type": null,
+        "evidence": null,
+        "sensitivity": "none",
+        "configured_action": null,
+        "status": "not_sensitive"
+      },
+      {
+        "column": "updated_at",
+        "null_rate": 0.0,
+        "distinct_values": 208,
+        "detected_pii_type": null,
+        "evidence": null,
+        "sensitivity": "none",
+        "configured_action": null,
+        "status": "not_sensitive"
+      }
+    ],
+    "warnings": []
+  },
+  {
+    "entity": "orders",
+    "file": "orders.csv",
+    "rows_profiled": 610,
+    "rows_total": 610,
+    "columns": [
+      {
+        "column": "order_id",
+        "null_rate": 0.0033,
+        "distinct_values": 599,
+        "detected_pii_type": null,
+        "evidence": null,
+        "sensitivity": "none",
+        "configured_action": null,
+        "status": "not_sensitive"
+      },
+      {
+        "column": "customer_id",
+        "null_rate": 0.0,
+        "distinct_values": 186,
+        "detected_pii_type": null,
+        "evidence": null,
+        "sensitivity": "none",
+        "configured_action": null,
+        "status": "not_sensitive"
+      },
+      {
+        "column": "order_ts",
+        "null_rate": 0.0,
+        "distinct_values": 594,
+        "detected_pii_type": null,
+        "evidence": null,
+        "sensitivity": "none",
+        "configured_action": null,
+        "status": "not_sensitive"
+      },
+      {
+        "column": "amount",
+        "null_rate": 0.0,
+        "distinct_values": 595,
+        "detected_pii_type": null,
+        "evidence": null,
+        "sensitivity": "none",
+        "configured_action": null,
+        "status": "not_sensitive"
+      },
+      {
+        "column": "currency",
+        "null_rate": 0.0,
+        "distinct_values": 5,
+        "detected_pii_type": null,
+        "evidence": null,
+        "sensitivity": "none",
+        "configured_action": null,
+        "status": "not_sensitive"
+      },
+      {
+        "column": "status",
+        "null_rate": 0.0,
+        "distinct_values": 5,
+        "detected_pii_type": null,
+        "evidence": null,
+        "sensitivity": "none",
+        "configured_action": null,
+        "status": "not_sensitive"
+      }
+    ],
+    "warnings": []
+  }
+]

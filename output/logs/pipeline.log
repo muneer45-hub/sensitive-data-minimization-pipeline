@@ -1,0 +1,12 @@
+2026-11-11 13:48:51,820 WARNING [sample_run_001] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+2026-11-11 13:48:51,821 INFO [sample_run_001] run started (force=False, input_dir=sample_data\input)
+2026-11-11 13:48:51,958 INFO [sample_run_001] customers: status=SUCCESS in=218 inserted=194 updated=8 unchanged=0 stale=0 rejected=16 (0.13s)
+2026-11-11 13:48:52,412 INFO [sample_run_001] orders: status=SUCCESS in=610 inserted=579 updated=0 unchanged=0 stale=0 rejected=31 (0.45s)
+2026-11-11 13:48:52,479 INFO [sample_run_001] run finished: status=SUCCESS totals={'input_rows': 828, 'loaded_rows': 781, 'rejected_rows': 47, 'stale_ignored_rows': 0} duration=0.79s
+2026-11-11 13:49:59,975 WARNING [sample_run_002_rerun] PII_TOKEN_KEY not set: using insecure DEV key (fine for demo, never for production)
+2026-11-11 13:49:59,975 INFO [sample_run_002_rerun] run started (force=False, input_dir=sample_data\input)
+2026-11-11 13:49:59,990 INFO [sample_run_002_rerun] customers: identical file already processed (sha256=e47640fd25d9...), skipping
+2026-11-11 13:49:59,990 INFO [sample_run_002_rerun] customers: status=SKIPPED_ALREADY_PROCESSED in=0 inserted=0 updated=0 unchanged=0 stale=0 rejected=0 (0.01s)
+2026-11-11 13:49:59,990 INFO [sample_run_002_rerun] orders: identical file already processed (sha256=b57b82cd1194...), skipping
+2026-11-11 13:50:00,007 INFO [sample_run_002_rerun] orders: status=SKIPPED_ALREADY_PROCESSED in=0 inserted=0 updated=0 unchanged=0 stale=0 rejected=0 (0.00s)
+2026-11-11 13:50:00,048 INFO [sample_run_002_rerun] run finished: status=SUCCESS totals={'input_rows': 0, 'loaded_rows': 0, 'rejected_rows': 0, 'stale_ignored_rows': 0} duration=0.06s

@@ -1,0 +1,6 @@
+{
+  "seed": 42,
+  "customers_rows": 218,
+  "orders_rows": 610,
+  "labelled_defects": 47
+}

@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+data_large/
+output/bronze/
+output/warehouse.db-wal
+output/warehouse.db-shm
+output/warehouse.db*
+output/logs/
