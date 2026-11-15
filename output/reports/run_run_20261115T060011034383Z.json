@@ -1,0 +1,44 @@
+{
+  "run_id": "run_20261115T060011034383Z",
+  "status": "SUCCESS",
+  "started_at": "2026-11-15T06:00:11Z",
+  "ended_at": "2026-11-15T06:00:11Z",
+  "duration_s": 0.4143,
+  "failure_reason": null,
+  "totals": {
+    "input_rows": 828,
+    "loaded_rows": 0,
+    "rejected_rows": 47,
+    "stale_ignored_rows": 8
+  },
+  "entities": [
+    {
+      "run_id": "run_20261115T060011034383Z",
+      "entity": "customers",
+      "source_file": "customers.csv",
+      "status": "SUCCESS",
+      "input_rows": 218,
+      "inserted": 0,
+      "updated": 0,
+      "unchanged": 194,
+      "stale_ignored": 8,
+      "rejected": 16,
+      "failure_reason": null,
+      "duration_s": 0.1617
+    },
+    {
+      "run_id": "run_20261115T060011034383Z",
+      "entity": "orders",
+      "source_file": "orders.csv",
+      "status": "SUCCESS",
+      "input_rows": 610,
+      "inserted": 0,
+      "updated": 0,
+      "unchanged": 579,
+      "stale_ignored": 0,
+      "rejected": 31,
+      "failure_reason": null,
+      "duration_s": 0.1194
+    }
+  ]
+}

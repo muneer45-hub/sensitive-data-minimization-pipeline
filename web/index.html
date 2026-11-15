@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sensitive Data Pipeline Console</title>
+<style>
+:root{--bg:#0b1020;--panel:#131a2e;--panel2:#1a2340;--line:#26335a;--text:#e8ecf8;--muted:#8d9ac0;
+--accent:#5eead4;--accent2:#818cf8;--ok:#34d399;--warn:#fbbf24;--bad:#f87171;--bronze:#d6a15c;--silver:#b8c4de;--gold:#f5c542}
+*{box-sizing:border-box}body{margin:0;font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text)}
+.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+aside{background:var(--panel);border-right:1px solid var(--line);padding:20px 14px;position:sticky;top:0;height:100vh}
+.brand{display:flex;gap:10px;align-items:center;font-weight:700;margin-bottom:22px}
+.logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#06101f;font-weight:800}
+nav a{display:block;padding:9px 12px;border-radius:9px;color:var(--muted);text-decoration:none;margin-bottom:3px;cursor:pointer}
+nav a:hover{background:var(--panel2);color:var(--text)}nav a.active{background:linear-gradient(90deg,#24305a,#1c2547);color:var(--accent)}
+.side-foot{position:absolute;bottom:18px;left:14px;right:14px;color:var(--muted);font-size:12px}
+main{padding:26px 32px;max-width:1300px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;gap:12px;flex-wrap:wrap}
+h1{font-size:22px;margin:0}h2{font-size:15px;margin:0 0 12px}.sub{color:var(--muted);font-size:13px}
+.btn{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06101f;border:0;padding:9px 16px;border-radius:9px;font-weight:700;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}.btn:disabled{opacity:.5;cursor:wait}
+.grid{display:grid;gap:16px}.kpis{grid-template-columns:repeat(auto-fit,minmax(170px,1fr));margin-bottom:16px}
+.two{grid-template-columns:repeat(auto-fit,minmax(380px,1fr));margin-bottom:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.kpi .v{font-size:28px;font-weight:800;margin-top:4px}.kpi .l{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:600;border:1px solid}
+.ok{color:var(--ok);border-color:#1f6b52;background:#0f2a24}.bad{color:var(--bad);border-color:#7a3030;background:#2b1417}
+.warn{color:var(--warn);border-color:#7a6320;background:#2a2410}.info{color:var(--accent2);border-color:#3a4486;background:#171d3d}
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:stretch;margin-bottom:16px}
+.arrow{align-self:center;color:var(--muted);font-size:22px}
+.layer{border-radius:14px;padding:16px;border:1px solid var(--line);background:var(--panel)}
+.layer h3{margin:0 0 4px;font-size:14px}.layer small{color:var(--muted)}.layer .n{font-size:24px;font-weight:800;margin:6px 0}
+.layer.bronze{border-top:3px solid var(--bronze)}.layer.silver{border-top:3px solid var(--silver)}.layer.gold{border-top:3px solid var(--gold)}
+.bars .row{display:grid;grid-template-columns:190px 1fr 56px;gap:10px;align-items:center;margin:7px 0;font-size:13px}
+.bars .lab{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted)}
+.track{background:#0e1428;border-radius:99px;height:10px;overflow:hidden}.fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.num{text-align:right}
+table{width:100%;border-collapse:collapse;font-size:13px}th{color:var(--muted);text-align:left;font-weight:600;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:8px 10px;border-bottom:1px solid #1d2748;vertical-align:top}tr:hover td{background:#161e38}
+.scroll{overflow-x:auto}code,.mono{font-family:ui-monospace,Consolas,monospace;font-size:12px}
+.toolbar{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+input,select{background:#0e1428;border:1px solid var(--line);color:var(--text);padding:8px 10px;border-radius:9px}
+.cmp{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.cmp .col{border-radius:12px;padding:12px;border:1px solid var(--line);background:var(--panel2)}
+.cmp .col h4{margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.cmp .raw h4{color:var(--bad)}.cmp .sil h4{color:var(--silver)}.cmp .gld h4{color:var(--gold)}
+.kv{display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed #26335a;font-size:12.5px}
+.kv span:first-child{color:var(--muted)}.dim{color:#5b6896;font-style:italic}
+.person{margin-bottom:14px}.person .id{margin-bottom:8px;font-weight:700}
+.toast{position:fixed;right:20px;bottom:20px;background:var(--panel2);border:1px solid var(--line);padding:12px 16px;border-radius:10px;max-width:420px;box-shadow:0 8px 30px #0008}
+.empty{text-align:center;padding:60px 20px}.empty h2{font-size:18px}
+details{margin-top:8px}summary{cursor:pointer;color:var(--accent)}pre{background:#0e1428;padding:10px;border-radius:8px;overflow:auto;font-size:12px}
+@media(max-width:900px){.app{grid-template-columns:1fr}aside{position:relative;height:auto}.side-foot{display:none}.flow{grid-template-columns:1fr}.arrow{display:none}.cmp{grid-template-columns:1fr}main{padding:18px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div class="brand"><div class="logo">SD</div><div>Sensitive Data<br><span class="sub">Pipeline Console</span></div></div>
+    <nav id="nav">
+      <a data-p="overview">Overview</a><a data-p="privacy">Privacy comparison</a><a data-p="quarantine">Quarantine</a>
+      <a data-p="quality">Data quality</a><a data-p="runs">Runs &amp; audit</a><a data-p="analytics">Gold analytics</a>
+    </nav>
+    <div class="side-foot">Bronze &rarr; Silver &rarr; Gold<br>Local demo &middot; synthetic data only</div>
+  </aside>
+  <main>
+    <div class="top">
+      <div><h1 id="title">Overview</h1><div class="sub" id="subtitle"></div></div>
+      <div><button class="btn ghost" id="forceBtn">Force rerun</button> <button class="btn" id="runBtn">Run pipeline</button></div>
+    </div>
+    <div id="view"></div>
+  </main>
+</div>
+<div id="toast" class="toast" style="display:none"></div>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt=n=>Number(n??0).toLocaleString();
+const api=async(p,o)=>{const r=await fetch(p,o);return r.json()};
+const pill=s=>{const c={SUCCESS:"ok",PASS:"ok",PROTECTED:"ok",FAILED:"bad",FAIL:"bad",PARTIAL_FAILURE:"warn",RUNNING:"info",UNPROTECTED_SENSITIVE:"bad"}[s]||(String(s).startsWith("SKIPPED")?"info":"info");return `<span class="pill ${c}">${esc(s)}</span>`};
+const bars=(items,money)=>{if(!items||!items.length)return '<div class="sub">No data yet</div>';const max=Math.max(...items.map(i=>i.value))||1;
+  return '<div class="bars">'+items.map(i=>`<div class="row"><div class="lab" title="${esc(i.label)}">${esc(i.label)}</div><div class="track"><div class="fill" style="width:${(i.value/max*100).toFixed(1)}%"></div></div><div class="num">${money?fmt(Math.round(i.value)):fmt(i.value)}</div></div>`).join("")+'</div>'};
+const table=(cols,rows)=>`<div class="scroll"><table><thead><tr>${cols.map(c=>`<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(v=>`<td>${v}</td>`).join("")}</tr>`).join("")||`<tr><td colspan="${cols.length}" class="sub">No rows</td></tr>`}</tbody></table></div>`;
+const empty=()=>`<div class="card empty"><h2>No pipeline output yet</h2><p class="sub">Click <b>Run pipeline</b> (top right) to load the input files through Bronze, Silver and Gold.</p></div>`;
+const toast=(m,ms=4500)=>{const t=$("#toast");t.innerHTML=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display="none",ms)};
+const kpi=(l,v,extra="")=>`<div class="card kpi"><div class="l">${l}</div><div class="v">${v}</div>${extra}</div>`;
+
+const pages={
+ async overview(){const d=await api("/api/summary");if(!d.ready)return empty();const c=d.counts,r=d.latest_run||{};
+  const rate=r.input_rows?((r.rejected_rows/r.input_rows)*100).toFixed(1)+"% reject rate":"";
+  return `<div class="grid kpis">
+   ${kpi("Latest run",pill(r.status||"-"),`<div class="sub mono">${esc(r.run_id||"")}</div>`)}
+   ${kpi("Customers (silver)",fmt(c.silver_customers),`<div class="sub">${fmt(c.history_rows)} history rows</div>`)}
+   ${kpi("Orders (silver)",fmt(c.silver_orders))}
+   ${kpi("Quarantined",fmt(c.quarantine),`<div class="sub">${rate}</div>`)}
+   ${kpi("Last duration",(r.duration_s??0)+" s",`<div class="sub">${fmt(r.input_rows)} input rows</div>`)}</div>
+  <div class="flow">
+   <div class="layer bronze"><h3>Level 1 &middot; Bronze</h3><small>Immutable raw copy + sha256</small><div class="n">${fmt(c.bronze_files)}</div><small>files landed (success)</small></div><div class="arrow">&rarr;</div>
+   <div class="layer silver"><h3>Level 2 &middot; Silver</h3><small>Validated, masked / tokenized, deduped</small><div class="n">${fmt(c.silver_customers+c.silver_orders)}</div><small>clean rows &middot; ${fmt(c.quarantine)} quarantined</small></div><div class="arrow">&rarr;</div>
+   <div class="layer gold"><h3>Level 3 &middot; Gold</h3><small>Minimized analytical dataset</small><div class="n">${fmt(c.gold_customers+c.gold_orders)}</div><small>published rows (no direct identifiers)</small></div></div>
+  <div class="grid two">
+   <div class="card"><h2>Why records were rejected</h2>${bars(d.reject_reasons)}</div>
+   <div class="card"><h2>Protection applied (latest load)</h2>${table(["Entity","Field","Action","Values"],d.protection.map(p=>[esc(p.entity),`<code>${esc(p.field)}</code>`,`<span class="pill info">${esc(p.action)}</span>`,fmt(p.rows_affected)]))}</div></div>
+  <div class="grid two">
+   <div class="card"><h2>Orders by status (gold)</h2>${bars(d.orders_by_status)}</div>
+   <div class="card"><h2>USD revenue by country (gold)</h2>${bars(d.revenue_by_country,true)}</div></div>`},
+
+ async privacy(){const d=await api("/api/privacy");if(!d.ready)return empty();
+  const kv=(o,keys)=>keys.map(k=>`<div class="kv"><span>${k}</span><span class="mono">${o[k]==null?'<i class="dim">removed</i>':esc(o[k])}</span></div>`).join("");
+  return `<div class="card" style="margin-bottom:16px"><h2>Same customer, three levels</h2><div class="sub">Policies from <code>config/pipeline_config.json</code>: ${Object.entries(d.policies).map(([k,v])=>`<span class="pill info">${esc(k)}: ${esc(v)}</span>`).join(" ")}<br>Raw values come from the synthetic source file and are shown only to demonstrate the transformation.</div></div>`+
+  d.rows.map(r=>`<div class="card person"><div class="id">${esc(r.customer_id)}</div><div class="cmp">
+   <div class="col raw"><h4>Source (raw)</h4>${kv(r.raw,["full_name","email","phone","ssn","dob"])}</div>
+   <div class="col sil"><h4>Silver (protected)</h4>${kv(r.silver,["full_name","email","phone","ssn","dob"])}</div>
+   <div class="col gld"><h4>Gold (published)</h4>${kv(r.gold,["email_token","birth_year","country_code","signup_date"])}</div></div></div>`).join("")},
+
+ async quarantine(){const d0=await api("/api/summary");if(!d0.ready)return empty();
+  const reasons=[...new Set(d0.reject_reasons.map(r=>r.label))];
+  setTimeout(()=>{const load=async()=>{const q=new URLSearchParams({entity:$("#fEnt").value,reason:$("#fRea").value});const d=await api("/api/quarantine?"+q);
+    $("#qTotal").textContent=fmt(d.total)+" records"+(d.total>200?" (showing first 200)":"");
+    $("#qBody").innerHTML=table(["Entity","File","Line","Key","Reason","Stored record (PII redacted)"],d.rows.map(r=>[esc(r.entity),esc(r.source_file),r.source_line_number,`<code>${esc(r.record_key||"-")}</code>`,`<span class="pill bad">${esc(r.reject_reason)}</span>`,`<code>${esc(r.raw_record_redacted)}</code>`]))};
+    $("#fEnt").onchange=load;$("#fRea").onchange=load;load()},0);
+  return `<div class="card"><div class="toolbar"><select id="fEnt"><option value="">All entities</option><option>customers</option><option>orders</option></select>
+   <select id="fRea"><option value="">All reasons</option>${reasons.map(r=>`<option>${esc(r)}</option>`).join("")}</select><span class="sub" id="qTotal" style="align-self:center"></span></div><div id="qBody"></div></div>`},
+
+ async quality(){const [c,p]=await Promise.all([api("/api/checks"),api("/api/profile")]);if(!c.ready)return empty();
+  const L=c.labels;
+  return `<div class="grid two"><div class="card"><h2>Reconciliation checks</h2>${table(["Check","Result","Detail"],c.checks.map(x=>[esc(x.check),pill(x.result),`<span class="sub">${esc(x.detail)}</span>`]))}</div>
+   <div class="card"><h2>Labelled-defect evaluation</h2>${L?`<p>Expected defects: <b>${L.expected_defects}</b><br>Caught with the expected reason: <b>${L.correctly_quarantined}</b><br>Missed: <b>${L.missed.length}</b> &middot; False positives: <b>${L.unexpected_quarantine.length}</b></p>${pill(L.ok?"PASS":"FAIL")}<p class="sub">Expected-answer labels are stored separately from the input data.</p>`:'<div class="sub">No labels file found.</div>'}</div></div>`+
+  p.profiles.map(pr=>`<div class="card" style="margin-bottom:16px"><h2>Profile &middot; ${esc(pr.entity)} <span class="sub">(${fmt(pr.rows_total)} rows)</span></h2>${table(["Column","Null rate","Distinct","Detected PII","Sensitivity","Action","Status"],pr.columns.map(x=>[`<code>${esc(x.column)}</code>`,x.null_rate,fmt(x.distinct_values),esc(x.detected_pii_type||"-"),esc(x.sensitivity),esc(x.configured_action||"-"),pill(x.status==="not_sensitive"?"-":x.status)]))}</div>`).join("")},
+
+ async runs(){const [r,a]=await Promise.all([api("/api/runs"),api("/api/audit")]);if(!r.ready)return empty();
+  return `<div class="card" style="margin-bottom:16px"><h2>Run history</h2>${table(["Run","Started","Status","Input","Loaded","Rejected","Stale","Seconds","Per entity / failure"],r.runs.map(x=>[`<code>${esc(x.run_id)}</code>`,esc(x.started_at),pill(x.status),fmt(x.input_rows),fmt(x.loaded_rows),fmt(x.rejected_rows),fmt(x.stale_ignored_rows),x.duration_s,
+   x.entities.map(e=>`${esc(e.entity)}: ${pill(e.status)} ${e.failure_reason?'<span class="sub">'+esc(e.failure_reason)+'</span>':''}`).join("<br>")]))}</div>
+  <div class="card"><h2>Audit log (latest 150)</h2>${table(["#","Run","Layer","Entity","Field","Action","Rows","Details"],a.rows.map(x=>[x.audit_id,`<code>${esc(x.run_id)}</code>`,esc(x.layer),esc(x.entity||"-"),esc(x.field||"-"),`<span class="pill info">${esc(x.action)}</span>`,fmt(x.rows_affected),`<code>${esc(x.details||"")}</code>`]))}</div>`},
+
+ async analytics(){const d=await api("/api/analytics");if(!d.ready)return empty();
+  const cols=o=>o.length?Object.keys(o[0]):[];
+  return d.queries.map(q=>`<div class="card" style="margin-bottom:16px"><h2>${esc(q.title)}</h2>${table(q.columns,q.rows.map(r=>r.map(v=>esc(v))))}<details><summary>SQL</summary><pre>${esc(q.sql)}</pre></details></div>`).join("")+
+  `<div class="grid two"><div class="card"><h2>gold_dim_customer (sample)</h2>${table(cols(d.gold_customers),d.gold_customers.map(r=>Object.values(r).map(v=>esc(v))))}</div>
+   <div class="card"><h2>gold_fact_order (sample)</h2>${table(cols(d.gold_orders),d.gold_orders.map(r=>Object.values(r).map(v=>esc(v))))}</div></div>`}
+};
+const titles={overview:["Overview","Health of the latest run and the three data layers"],privacy:["Privacy comparison","See exactly how sensitive fields change at each level"],quarantine:["Quarantine","Every rejected record is traceable to file + line, with PII redacted"],quality:["Data quality","Reconciliation, labelled defects and the sensitive-field profile"],runs:["Runs & audit","Operational metrics and the audit trail"],analytics:["Gold analytics","Sample queries on the minimized dataset"]};
+async function route(){const p=(location.hash||"#overview").slice(1);const page=pages[p]?p:"overview";
+  document.querySelectorAll("#nav a").forEach(a=>a.classList.toggle("active",a.dataset.p===page));
+  $("#title").textContent=titles[page][0];$("#subtitle").textContent=titles[page][1];$("#view").innerHTML='<div class="sub">Loading...</div>';
+  try{$("#view").innerHTML=await pages[page]()}catch(e){$("#view").innerHTML=`<div class="card"><b>Could not load data</b><div class="sub">${esc(e)}</div></div>`}}
+document.querySelectorAll("#nav a").forEach(a=>a.onclick=()=>{location.hash=a.dataset.p});
+window.addEventListener("hashchange",route);
+async function run(force){const b1=$("#runBtn"),b2=$("#forceBtn");b1.disabled=b2.disabled=true;toast("Running pipeline...",60000);
+  try{const r=await api("/api/run",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({force})});
+   if(r.error){toast("Error: "+esc(r.error))}else{const sk=r.entities.filter(e=>e.status.startsWith("SKIPPED")).length;
+    toast(`Run <b>${esc(r.status)}</b> &middot; input ${fmt(r.totals.input_rows)} &middot; loaded ${fmt(r.totals.loaded_rows)} &middot; rejected ${fmt(r.totals.rejected_rows)}`+(sk?` &middot; ${sk} file(s) skipped (already processed)`:""))}}
+  catch(e){toast("Request failed: "+esc(e))}b1.disabled=b2.disabled=false;route()}
+$("#runBtn").onclick=()=>run(false);$("#forceBtn").onclick=()=>run(true);route();
+</script>
+</body>
+</html>

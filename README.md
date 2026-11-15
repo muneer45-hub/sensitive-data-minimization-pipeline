@@ -100,3 +100,9 @@ measurements and optimization results.
 - Gold tables use a full refresh.
 - Production deployment could use cloud storage,
   distributed processing and managed key rotation.
+
+## 12. Dashboard (optional UI)
+    python -m sensitive_pipeline.cli run
+    python -m sensitive_pipeline.web        # open http://127.0.0.1:8000
+Pages: Overview, Privacy comparison (raw vs silver vs gold), Quarantine, Data quality, Runs & audit, Gold analytics.
+Standard library only; the browser UI is `web/index.html`. Tests: `tests/test_web.py` (31 tests in total).
